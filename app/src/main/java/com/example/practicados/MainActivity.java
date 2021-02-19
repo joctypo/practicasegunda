@@ -77,25 +77,33 @@ public class MainActivity extends AppCompatActivity {
                             arraca=true;
                             new Thread(
                                     () -> {
+
+
                                         for(int i=0;i<20;i++){
                                             try {
                                                 Thread.sleep(75);
                                                 if(arraca==false){
+                                                    runOnUiThread(
+
+                                                            () -> {
+                                                              Toast.makeText(this,"alzo el dedo",Toast.LENGTH_SHORT).show();
+                                                            }
+                                                    );
                                                     return;
                                                 }else {}
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
 
-
                                         }
-                                        runOnUiThread(
+                                        if(arraca==true) {
+                                            runOnUiThread(
 
-                                                () -> {
-                                                    mostrarNuevaPregunta();
-                                                }
-                                        );
-
+                                                    () -> {
+                                                        mostrarNuevaPregunta();
+                                                    }
+                                            );
+                                        }
                                     }
                             ).start();
 
@@ -103,13 +111,14 @@ public class MainActivity extends AppCompatActivity {
 
                         case MotionEvent.ACTION_UP:
                             arraca=false;
+                            //Toast.makeText(this,"alzo el dedo",Toast.LENGTH_SHORT).show();
                             break;
 
 
 
                     }
 
-                    return false;
+                    return true;
                 }
 
 
